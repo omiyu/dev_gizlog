@@ -12,11 +12,23 @@
       </div>
       <div class="form-group">
         {!! Form::input('text', 'title', $daily_report->title, ['class' => 'form-control', 'placeholder' => 'Title']) !!}
-      <span class="help-block"></span>
+        @if ($errors->any())
+          <span class="help-block">
+            @foreach ($errors->all() as $error)
+              {{ $error }}
+            @endforeach
+          </span>
+        @endif
       </div>
       <div class="form-group">
         {!! Form::textarea('content', $daily_report->content, ['class' => 'form-control', 'placeholder' => $daily_report->content, 'cols' => '50', 'rows' => '10']) !!}
-      <span class="help-block"></span>
+        @if ($errors->any())
+          <span class="help-block">
+            @foreach ($errors->all() as $error)
+              {{ $error }}
+            @endforeach
+          </span>
+        @endif
       </div>
       {!! Form::submit('Update', ['class' => 'btn btn-success pull-right']) !!}
     {!! Form::close() !!}

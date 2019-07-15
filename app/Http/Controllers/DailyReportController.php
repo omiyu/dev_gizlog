@@ -28,22 +28,22 @@ class DailyReportController extends Controller
     }
 
 
-    public function validation($input)
-    {
-        $validator = Validator::make($input, [
-            'reporting_time' => 'required|date|max:255',
-            'title' => 'required|string|max:255',
-            'content'=> 'required|string|max:255',
-        ])->validate();
+    // public function validation($input)
+    // {
+    //     $validator = Validator::make($input, [
+    //         'reporting_time' => 'required|date|max:255',
+    //         'title' => 'required|string|max:255',
+    //         'content'=> 'required|string|max:255',
+    //     ])->validate();
 
-        // if ($validator->fails()) {
-        //     return redirect('/daily_report/create')
-        //                 ->withErrors($validator);
-        //                 // ->withInput();
-        // }
+    //     // if ($validator->fails()) {
+    //     //     return redirect('/daily_report/create')
+    //     //                 ->withErrors($validator);
+    //     //                 // ->withInput();
+    //     // }
 
-        return $validator;
-    }
+    //     return $validator;
+    // }
     
     public function index()
     {
@@ -58,7 +58,7 @@ class DailyReportController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
+    {   
         return view("user.daily_report.create");
     }
 
@@ -70,16 +70,18 @@ class DailyReportController extends Controller
      */
     public function store(Request $request)
     {
-            $input = $request->all();
-            $validator = $this->validation($input);
-            $input["reporting_time"] = $validator["reporting_time"];
-            $input["title"] = $validator["title"];
-            $input["user_id"] = Auth::id();
-            $input["content"] = $validator["content"];
-            // dd($input);
-            $this->daily_report->fill($input)->save();
-            return redirect()->route("daily_report.index");
-      
+        $request->validate([
+            'title' => 'bail|required|string|max:225',
+            'content' => 'required|string|max:225',
+        ]);
+        $input = $request->all();
+        // $validator = $this->validation($input);
+        // $input["reporting_time"] = $validator["reporting_time"];
+        // $input["title"] = $validator["title"];
+        // $input["content"] = $validator["content"];
+        $input["user_id"] = Auth::id();
+        $this->daily_report->fill($input)->save();
+        return redirect()->route("daily_report.index"); 
     }
 
     /**
@@ -115,6 +117,10 @@ class DailyReportController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'title' => 'bail|required|string|max:225',
+            'content' => 'required|string|max:225',
+        ]);
         $input = $request->all();
         // $input["user_id"] = Auth::id();
         $this->daily_report->find($id)->fill($input)->save();
