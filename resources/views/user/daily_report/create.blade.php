@@ -13,7 +13,7 @@
     {!! Form::input('text', 'title', null, ['class' => 'form-control', 'placeholder' => 'Title']) !!}
       @if ($errors->any())
         <span class="help-block">
-          @foreach ($errors->all() as $error)
+          @foreach ($errors->get('title') as $error)
             {{ $error }}
           @endforeach
         </span>
@@ -23,7 +23,7 @@
       {!! Form::textarea('content', null, ['class' => 'form-control', 'placeholder' => 'Content', 'cols' => '50', 'rows' => '10'])!!}
       @if ($errors->any())
         <span class="help-block">
-          @foreach ($errors->all() as $error)
+          @foreach ($errors->get('content') as $error)
             {{ $error }}
           @endforeach
         </span>

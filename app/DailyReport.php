@@ -26,4 +26,9 @@ class DailyReport extends Model
     {
         return $this->where('user_id', $id)->where('deleted_at', null)->get();
     }
+
+    public function getByMonth($id, $keyword)
+    {
+        return $this->where('user_id', $id)->where('deleted_at', null)->where('reporting_time', 'LIKE', "%$keyword%")->get();
+    }
 }
