@@ -44,6 +44,7 @@ class DailyReportController extends Controller
 
     //     return $validator;
     // }
+
     
     public function index()
     {
@@ -90,6 +91,12 @@ class DailyReportController extends Controller
      * @param  \App\DailyReport  $dailyReport
      * @return \Illuminate\Http\Response
      */
+    public function search(Request $request)
+    {
+        dd('aa');
+
+    }
+    
     public function show($id)
     {
         $daily_report = $this->daily_report->find($id);
