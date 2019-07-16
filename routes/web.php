@@ -13,7 +13,6 @@
 
 
 Route::resource('daily_report', 'DailyReportController');
-Route::get('/daily_report/search', 'DailyReportController@search')->name('daily_report.search');
 
 Route::group(['prefix' => '/', 'user.', 'namespace' => 'User'], function () {
     Auth::routes();
