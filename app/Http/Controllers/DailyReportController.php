@@ -21,6 +21,7 @@ class DailyReportController extends Controller
 
     private $daily_report;
 
+
     public function __construct(DailyReport $instanceClass)
     {
         $this->middleware('auth');
@@ -28,28 +29,15 @@ class DailyReportController extends Controller
     }
 
 
-    // public function validation($input)
-    // {
-    //     $validator = Validator::make($input, [
-    //         'reporting_time' => 'required|date|max:255',
-    //         'title' => 'required|string|max:255',
-    //         'content'=> 'required|string|max:255',
-    //     ])->validate();
-
-    //     // if ($validator->fails()) {
-    //     //     return redirect('/daily_report/create')
-    //     //                 ->withErrors($validator);
-    //     //                 // ->withInput();
-    //     // }
-
-    //     return $validator;
-    // }
-
     
-    public function index()
+    public function index(Request $request)
     {
-        $daily_reports = $this->daily_report->getAll(Auth::id());
-        // dd($daily_reports);
+        $input = $request->all();
+        if( empty($input) ){
+            $daily_reports = $this->daily_report->getAll(Auth::id());
+        } else {
+            $daily_reports = $this->daily_report->getByMonth(Auth::id(), $input["search-month"]);
+        }
         return view("user.daily_report.index", compact("daily_reports"));
     }
 
@@ -71,15 +59,11 @@ class DailyReportController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        $aa = $request->validate([
             'title' => 'bail|required|string|max:225',
             'content' => 'required|string|max:225',
         ]);
         $input = $request->all();
-        // $validator = $this->validation($input);
-        // $input["reporting_time"] = $validator["reporting_time"];
-        // $input["title"] = $validator["title"];
-        // $input["content"] = $validator["content"];
         $input["user_id"] = Auth::id();
         $this->daily_report->fill($input)->save();
         return redirect()->route("daily_report.index"); 
@@ -91,12 +75,6 @@ class DailyReportController extends Controller
      * @param  \App\DailyReport  $dailyReport
      * @return \Illuminate\Http\Response
      */
-    public function search(Request $request)
-    {
-        dd('aa');
-
-    }
-    
     public function show($id)
     {
         $daily_report = $this->daily_report->find($id);
