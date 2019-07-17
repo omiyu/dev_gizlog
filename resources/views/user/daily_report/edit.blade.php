@@ -5,7 +5,6 @@
 <div class="main-wrap">
   <div class="container">
     {!! Form::open(['route' => ['daily_report.update', $dailyReport->id], 'method' => 'PUT']) !!}
-      {!! Form::input('hidden', 'user_id', '4', ['class' => 'form-control']) !!}
       <div class="form-group form-size-small">
         {!! Form::input('date', 'reporting_time', date('Y-m-d', strtotime($dailyReport->reporting_time)), ['class' => 'form-control']) !!}
       <span class="help-block"></span>
