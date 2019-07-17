@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -29,6 +29,6 @@ class DailyReport extends Model
 
     public function getByMonth($id, $keyword)
     {
-        return $this->where('user_id', $id)->where('deleted_at', null)->where('reporting_time', 'LIKE', "%$keyword%")->get();
+        return $this->where('user_id', $id)->where('deleted_at', null)->where('reporting_time', 'LIKE', $keyword.'%')->get();
     }
 }
