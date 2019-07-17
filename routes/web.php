@@ -11,11 +11,10 @@
 |
  */
 
-
-Route::resource('daily_report', 'DailyReportController');
-
 Route::group(['prefix' => '/', 'user.', 'namespace' => 'User'], function () {
     Auth::routes();
+
+    Route::resource('daily_report', 'DailyReportController');
 
     Route::get('/', function () {
         if (Auth::check()) {
