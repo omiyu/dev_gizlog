@@ -4,14 +4,14 @@
 <h1 class="brand-header">日報編集</h1>
 <div class="main-wrap">
   <div class="container">
-    {!! Form::open(['route' => ['daily_report.update', $daily_report->id], 'method' => 'PUT']) !!}
+    {!! Form::open(['route' => ['daily_report.update', $dailyReport->id], 'method' => 'PUT']) !!}
       {!! Form::input('hidden', 'user_id', '4', ['class' => 'form-control']) !!}
       <div class="form-group form-size-small">
-        {!! Form::input('date', 'reporting_time', date('Y-m-d', strtotime($daily_report->reporting_time)), ['class' => 'form-control']) !!}
+        {!! Form::input('date', 'reporting_time', date('Y-m-d', strtotime($dailyReport->reporting_time)), ['class' => 'form-control']) !!}
       <span class="help-block"></span>
       </div>
       <div class="form-group">
-        {!! Form::input('text', 'title', $daily_report->title, ['class' => 'form-control', 'placeholder' => 'Title']) !!}
+        {!! Form::input('text', 'title', $dailyReport->title, ['class' => 'form-control', 'placeholder' => 'Title']) !!}
         @if ($errors->any())
           <span class="help-block">
             @foreach ($errors->all() as $error)
@@ -21,7 +21,7 @@
         @endif
       </div>
       <div class="form-group">
-        {!! Form::textarea('content', $daily_report->content, ['class' => 'form-control', 'placeholder' => $daily_report->content, 'cols' => '50', 'rows' => '10']) !!}
+        {!! Form::textarea('content', $dailyReport->content, ['class' => 'form-control', 'placeholder' => $dailyReport->content, 'cols' => '50', 'rows' => '10']) !!}
         @if ($errors->any())
           <span class="help-block">
             @foreach ($errors->all() as $error)
