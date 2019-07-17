@@ -6,12 +6,12 @@
   {!! Form::open(['route' => 'daily_report.store',  'method' => 'POST', 'class' => 'container']) !!}
     {!! Form::input('hidden', 'user_id', null, ['class' => 'form-control']) !!}
       <div class="form-group form-size-small">
-    {!! Form::input('date', 'reporting_time', date('Y-m-j'), ['class' => 'form-control']) !!}
+    {!! Form::input('date', 'reporting_time', date('Y-m-d'), ['class' => 'form-control']) !!}
     <span class="help-block"></span>
     </div>
     <div class="form-group">
     {!! Form::input('text', 'title', null, ['class' => 'form-control', 'placeholder' => 'Title']) !!}
-      @if ($errors->any())
+      @if ($errors->has('title'))
         <span class="help-block">
           @foreach ($errors->get('title') as $error)
             {{ $error }}
@@ -21,7 +21,7 @@
     </div>
     <div class="form-group">
       {!! Form::textarea('content', null, ['class' => 'form-control', 'placeholder' => 'Content', 'cols' => '50', 'rows' => '10'])!!}
-      @if ($errors->any())
+      @if ($errors->has('content'))
         <span class="help-block">
           @foreach ($errors->get('content') as $error)
             {{ $error }}
