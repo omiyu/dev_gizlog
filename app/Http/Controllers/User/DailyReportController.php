@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\User;
 
 use App\Models\DailyReport;
 use Illuminate\Http\Request;
@@ -35,9 +35,9 @@ class DailyReportController extends Controller
         if(empty($input)){
             $dailyReports = $this->dailyReport->getAll(Auth::id());
         } else {
-            $dailyReports = $this->dailyReport->getByMonth(Auth::id(), $input["search-month"]);
+            $dailyReports = $this->dailyReport->getByMonth(Auth::id(), $input['search-month']);
         }
-        return view("user.daily_report.index", compact("dailyReports"));
+        return view('user.daily_report.index', compact('dailyReports'));
     }
 
     /**
@@ -47,7 +47,7 @@ class DailyReportController extends Controller
      */
     public function create()
     {   
-        return view("user.daily_report.create");
+        return view('user.daily_report.create');
     }
 
     /**
@@ -58,14 +58,14 @@ class DailyReportController extends Controller
      */
     public function store(Request $request)
     {
-        $aa = $request->validate([
-            'title' => 'bail|required|string|max:225',
-            'content' => 'required|string|max:225',
+        $request->validate([
+            'title' => 'required|string|max:50',
+            'content' => 'required|string|max:1500',
         ]);
         $input = $request->all();
-        $input["user_id"] = Auth::id();
+        $input['user_id'] = Auth::id();
         $this->dailyReport->fill($input)->save();
-        return redirect()->route("daily_report.index"); 
+        return redirect()->route('daily_report.index'); 
     }
 
     /**
@@ -77,7 +77,7 @@ class DailyReportController extends Controller
     public function show($id)
     {
         $dailyReport = $this->dailyReport->find($id);
-        return view("user.daily_report.show", compact('dailyReport'));
+        return view('user.daily_report.show', compact('dailyReport'));
     }
 
     /**
@@ -89,7 +89,7 @@ class DailyReportController extends Controller
     public function edit($id)
     {
         $dailyReport = $this->dailyReport->find($id);
-        return view("user.daily_report.edit", compact('dailyReport'));
+        return view('user.daily_report.edit', compact('dailyReport'));
     }
 
     /**
@@ -102,13 +102,13 @@ class DailyReportController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'title' => 'bail|required|string|max:225',
-            'content' => 'required|string|max:225',
+            'title' => 'required|string|max:50',
+            'content' => 'required|string|max:1500',
         ]);
         $input = $request->all();
-        // $input["user_id"] = Auth::id();
+        // $input['user_id'] = Auth::id();
         $this->dailyReport->find($id)->fill($input)->save();
-        return redirect()->route("daily_report.index");
+        return redirect()->route('daily_report.index');
     }
 
     /**
@@ -120,7 +120,7 @@ class DailyReportController extends Controller
     public function destroy($id)
     {
         $this->dailyReport->find($id)->delete();
-        return redirect()->route("daily_report.index");
+        return redirect()->route('daily_report.index');
     }
 
 
