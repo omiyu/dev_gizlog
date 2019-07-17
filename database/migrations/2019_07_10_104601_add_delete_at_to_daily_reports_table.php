@@ -25,6 +25,8 @@ class AddDeleteAtToDailyReportsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('daily_reports');
+        Schema::table('daily_reports', function (Blueprint $table) {
+            $table->dropColumn('deleted_at');
+        });
     }
 }
