@@ -21,10 +21,10 @@ class DailyReportController extends Controller
 
     private $dailyReport;
 
-    public function __construct(DailyReport $instanceClass)
+    public function __construct(DailyReport $dailyReport)
     {
         $this->middleware('auth');
-        $this->dailyReport = $instanceClass;
+        $this->dailyReport = $dailyReport;
     }
 
 
