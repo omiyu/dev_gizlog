@@ -5,8 +5,6 @@ namespace App\Http\Controllers\User;
 use App\Models\DailyReport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\View\Middleware\ShareErrorsFromSession;
 use App\Http\Controllers\Controller;
 use Validator;
 use Carbon\Carbon;
