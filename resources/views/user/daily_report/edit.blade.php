@@ -9,25 +9,17 @@
         {!! Form::input('date', 'reporting_time', date('Y-m-d', strtotime($dailyReport->reporting_time)), ['class' => 'form-control']) !!}
       <span class="help-block"></span>
       </div>
-      <div class="form-group">
+      <div class="form-group {{ $errors->has('title') ? 'has-error' : '' }}">
         {!! Form::input('text', 'title', $dailyReport->title, ['class' => 'form-control', 'placeholder' => 'Title']) !!}
-        @if ($errors->has('title'))
           <span class="help-block">
-            @foreach ($errors->all() as $error)
-              {{ $error }}
-            @endforeach
+            {{ $errors->first('title') }}
           </span>
-        @endif
       </div>
-      <div class="form-group">
+      <div class="form-group {{ $errors->has('content') ? 'has-error' : '' }}">
         {!! Form::textarea('content', $dailyReport->content, ['class' => 'form-control', 'placeholder' => $dailyReport->content, 'cols' => '50', 'rows' => '10']) !!}
-        @if ($errors->has('content'))
           <span class="help-block">
-            @foreach ($errors->all() as $error)
-              {{ $error }}
-            @endforeach
+            {{ $errors->first('content') }}
           </span>
-        @endif
       </div>
       {!! Form::submit('Update', ['class' => 'btn btn-success pull-right']) !!}
     {!! Form::close() !!}

@@ -6,6 +6,7 @@ use App\Models\DailyReport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\User\DailyReportRequest;
 use Validator;
 use Carbon\Carbon;
 
@@ -16,7 +17,6 @@ class DailyReportController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-
     private $dailyReport;
 
     public function __construct(DailyReport $dailyReport)
@@ -25,12 +25,10 @@ class DailyReportController extends Controller
         $this->dailyReport = $dailyReport;
     }
 
-
-    
     public function index(Request $request)
     {
         $input = $request->all();
-        if(empty($input)){
+        if (empty($input)) {
             $dailyReports = $this->dailyReport->getAll(Auth::id());
         } else {
             $dailyReports = $this->dailyReport->getByMonth(Auth::id(), $input['search-month']);
@@ -54,12 +52,8 @@ class DailyReportController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(DailyReportRequest $request)
     {
-        $request->validate([
-            'title' => 'required|string|max:50',
-            'content' => 'required|string|max:1500',
-        ]);
         $input = $request->all();
         $input['user_id'] = Auth::id();
         $this->dailyReport->fill($input)->save();
@@ -97,14 +91,10 @@ class DailyReportController extends Controller
      * @param  \App\DailyReport  $dailyReport
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(DailyReportRequest $request, $id)
     {
-        $request->validate([
-            'title' => 'required|string|max:50',
-            'content' => 'required|string|max:1500',
-        ]);
         $input = $request->all();
-        // $input['user_id'] = Auth::id();
+        $input['user_id'] = Auth::id();
         $this->dailyReport->find($id)->fill($input)->save();
         return redirect()->route('daily_report.index');
     }
@@ -120,6 +110,4 @@ class DailyReportController extends Controller
         $this->dailyReport->find($id)->delete();
         return redirect()->route('daily_report.index');
     }
-
-
 }
