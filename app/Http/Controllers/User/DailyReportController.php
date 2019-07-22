@@ -33,6 +33,7 @@ class DailyReportController extends Controller
         } else {
             $dailyReports = $this->dailyReport->getByMonth(Auth::id(), $input['search-month']);
         }
+        // dd($dailyReports[0]->reporting_time->day);
         return view('user.daily_report.index', compact('dailyReports'));
     }
 
@@ -81,6 +82,7 @@ class DailyReportController extends Controller
     public function edit($id)
     {
         $dailyReport = $this->dailyReport->find($id);
+        // dd($dailyReport->reporting_time->format('m/d'));
         return view('user.daily_report.edit', compact('dailyReport'));
     }
 

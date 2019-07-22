@@ -6,7 +6,7 @@
   <div class="container">
     {!! Form::open(['route' => ['daily_report.update', $dailyReport->id], 'method' => 'PUT']) !!}
       <div class="form-group form-size-small">
-        {!! Form::input('date', 'reporting_time', date('Y-m-d', strtotime($dailyReport->reporting_time)), ['class' => 'form-control']) !!}
+        {!! Form::input('date', 'reporting_time', $dailyReport->reporting_time->format('Y-m-d'), ['class' => 'form-control']) !!}
       <span class="help-block"></span>
       </div>
       <div class="form-group {{ $errors->has('title') ? 'has-error' : '' }}">
