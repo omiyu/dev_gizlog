@@ -8,12 +8,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class DailyReport extends Model
 {
     use SoftDeletes;
+
     /**
      * 日付へキャストする属性
-     *
      * @var array
      */
-    protected $dates = ['deleted_at'];
+    protected $dates = ['reporting_time'];
 
     protected $fillable = [
         'user_id',
@@ -22,13 +22,13 @@ class DailyReport extends Model
         'reporting_time',
     ];
 
-    public function getAll($id)
+    public function getDailyReportsByUserID($id)
     {
-        return $this->where('user_id', $id)->where('deleted_at', null)->get();
+        return $this->where('user_id', $id)->get();
     }
 
-    public function getByMonth($id, $keyword)
+    public function getDailyReportsByDates($id, $keyword)
     {
-        return $this->where('user_id', $id)->where('deleted_at', null)->where('reporting_time', 'LIKE', $keyword.'%')->get();
+        return $this->where('user_id', $id)->where('reporting_time', 'LIKE', $keyword.'%')->get();
     }
 }
