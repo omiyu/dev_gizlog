@@ -33,7 +33,6 @@ class DailyReportController extends Controller
         } else {
             $dailyReports = $this->dailyReport->getDailyReportsByDates(Auth::id(), ($input['search-month']));
         }
-        // dd($dailyReports[0]->reporting_time->day);
         return view('user.daily_report.index', compact('dailyReports'));
     }
 
