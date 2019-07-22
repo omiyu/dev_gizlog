@@ -16,14 +16,14 @@
           </tr>
           <tr>
             <th class="table-column">Content</th>
-            <td class='td-text'>{{ $dailyReport->content }}</td>
+            <td class='td-text'>{!! nl2br(e($dailyReport->content)) !!}</td>
           </tr>
         </tbody>
       </table>
     </div>
   </div>
   <div class="btn-bottom-wrapper">
-    <a class="btn btn-edit" href="{{ route('daily_report.edit', ['id'=> $dailyReport->id]) }} "><i class="fa fa-pencil" aria-hidden="true"></i></a>
+    <a class="btn btn-edit" href="{{ route('daily_report.edit', ['id' => $dailyReport->id]) }} "><i class="fa fa-pencil" aria-hidden="true"></i></a>
     <div class="btn-delete">
       {!! Form::open(['route' => ['daily_report.destroy', $dailyReport->id], 'method' => 'DELETE']) !!}
         <button class="btn btn-danger" type="submit"><i class="fa fa-trash-o"></i></button>
