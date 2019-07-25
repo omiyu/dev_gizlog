@@ -25,7 +25,9 @@ class DailyReport extends Model
 
     public function getDailyReportsByUserID($id)
     {
-        return $this->where('user_id', $id)->get();
+        return $this->where('user_id', $id)
+            ->orderBy('reporting_time', 'desc')
+            ->get();
     }
 
     public function getDailyReportsByDates($id, $date)
@@ -34,6 +36,7 @@ class DailyReport extends Model
         return $this->where('user_id', $id)
             ->whereYear('reporting_time', $carbonToGetDailyReports->year)
             ->whereMonth('reporting_time', $carbonToGetDailyReports->month)
+            ->orderBy('reporting_time', 'desc')
             ->get();
     }
 }
