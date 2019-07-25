@@ -12,11 +12,6 @@ use Carbon\Carbon;
 
 class DailyReportController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     private $dailyReport;
 
     public function __construct(DailyReport $dailyReport)
@@ -25,6 +20,11 @@ class DailyReportController extends Controller
         $this->dailyReport = $dailyReport;
     }
 
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index(Request $request)
     {
         $input = $request->all();
