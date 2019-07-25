@@ -28,9 +28,9 @@ class DailyReport extends Model
         return $this->where('user_id', $id)->get();
     }
 
-    public function getDailyReportsByDates($id, $keyword)
+    public function getDailyReportsByDates($id, $date)
     {
-        $carbonToGetDailyReports = new Carbon($keyword);
+        $carbonToGetDailyReports = new Carbon($date);
         return $this->where('user_id', $id)
             ->whereYear('reporting_time', $carbonToGetDailyReports->year)
             ->whereMonth('reporting_time', $carbonToGetDailyReports->month)
