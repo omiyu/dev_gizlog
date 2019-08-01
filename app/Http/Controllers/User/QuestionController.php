@@ -3,20 +3,24 @@
 namespace App\Http\Controllers\User;
 
 use Illuminate\Http\Request;
-use App\Http\Requests\User\QuestionRequest;
+use App\Http\Requests\User\QuestionsRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Question;
+use App\Models\TagCategory;
 
 class QuestionController extends Controller
 {
     protected $question;
+    protected $category;
 
-    public function __construct(Question $question)
+    public function __construct(Question $question, TagCategory $category)
     {
         $this->middleware('auth');
         $this->question = $question;
+        $this->category = $category;
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -24,7 +28,10 @@ class QuestionController extends Controller
      */
     public function index()
     {
-        return view('user.question.index');
+        $questions = $this->question->getAllQuestions();
+        // $questions[user_avatar] = Auth::user()->avatar;
+        // dd($questions);
+        return view('user.question.index', compact('questions'));
     }
 
     /**
@@ -34,7 +41,8 @@ class QuestionController extends Controller
      */
     public function create()
     {
-        return view('user.question.create');
+        $categories = $this->category->getAllCategories();
+        return view('user.question.create', compact('categories'));
     }
 
     /**
@@ -43,9 +51,11 @@ class QuestionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(QuestionRequest $request)
+    public function store(QuestionsRequest $request)
     {
         $inputs = $request->all();
+        $inputs['user_id'] = Auth::id();
+        $this->question->create($inputs);
         return redirect()->to('question');
     }
 
