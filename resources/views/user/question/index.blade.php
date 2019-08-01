@@ -12,7 +12,7 @@
         {!! Form::close() !!}
       </div>
       <a class="btn" href="{{ route('question.create') }}"><i class="fa fa-plus" aria-hidden="true"></i></a>
-      <a class="btn" href="">
+      <a class="btn" href="{{ route('question.myPageTop') }}">
         <i class="fa fa-user" aria-hidden="true"></i>
       </a>
     </div>

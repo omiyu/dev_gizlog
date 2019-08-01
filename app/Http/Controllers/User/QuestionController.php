@@ -78,6 +78,9 @@ class QuestionController extends Controller
      */
     public function edit($id)
     {
+        dd($id);
+        $test = DB::table('questions')->where('id', $id)->get();
+        dd($test);
         return view('user.question.edit');
     }
 
@@ -102,5 +105,11 @@ class QuestionController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function myPageTop()
+    {
+        $questions = $this->question->getQuestionsByUserId(Auth::id());
+        return view('user.question.mypage', compact('questions'));
     }
 }

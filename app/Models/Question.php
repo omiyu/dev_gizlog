@@ -27,6 +27,11 @@ class Question extends Model
         return $this->get();
     }
 
+    public function getQuestionsByUserId($user_id)
+    {
+        return $this->where('user_id', $user_id)->get();
+    }
+
 
     
     
