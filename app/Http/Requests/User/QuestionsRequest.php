@@ -24,7 +24,6 @@ class QuestionsRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_id' => 'required',
             'tag_category_id' => 'required',
             'title' => 'required',
             'content' => 'required',
@@ -34,7 +33,7 @@ class QuestionsRequest extends FormRequest
     public function messages()
     {
         return [
-            'user_id.required' => '入力必須の項目です。',
+            // 「select category」のバリデーションを追加する
             'tag_category_id.required' => '入力必須の項目です。',
             'title.required' => '入力必須の項目です。',
             'content.required' => '入力必須の項目です。',
