@@ -43,7 +43,7 @@ Route::group(['prefix' => '/', 'user.', 'namespace' => 'User'], function () {
     Route::resource('report', DailyReportController::class);
 
     Route::resource('question', QuestionController::class);
-    Route::get('/question/myPageTop/{user_id}', 'QuestionController@myPageTop')->name('question.myPageTop');
+    Route::get('/question/myPageTop', 'QuestionController@myPageTop')->name('question.myPageTop');
 
 });
 
