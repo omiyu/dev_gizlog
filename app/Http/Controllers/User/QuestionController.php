@@ -28,7 +28,7 @@ class QuestionController extends Controller
      */
     public function index()
     {
-        $questions = $this->question->getAllQuestions();
+        $questions = $this->question->getQuestions(null);
         // $questions[user_avatar] = Auth::user()->avatar;
         // dd($questions);
         return view('user.question.index', compact('questions'));
@@ -110,6 +110,12 @@ class QuestionController extends Controller
     public function myPageTop()
     {
         $questions = $this->question->getQuestionsByUserId(Auth::id());
-        return view('user.question.mypage', compact('questions'));
+        return view('user.question.mypage', compact('quesstions'));
+    }
+
+    public function confirm($id)
+    {
+        $question = $this->question->getQuestions($id);
+        return view('user.question.confirm', compact('question'));
     }
 }
