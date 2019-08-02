@@ -67,7 +67,8 @@ class QuestionController extends Controller
      */
     public function show($id)
     {
-        return view('user.question.show');
+        $question = $this->question->getQuestions($id);
+        return view('user.question.show', compact('question'));
     }
 
     /**
@@ -118,4 +119,6 @@ class QuestionController extends Controller
         $question = $this->question->getQuestions($id);
         return view('user.question.confirm', compact('question'));
     }
+
+    
 }
