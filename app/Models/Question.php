@@ -22,9 +22,16 @@ class Question extends Model
         'deleted_at',
     ];
 
-    public function getAllQuestions()
+    public function getQuestions($id)
     {
-        return $this->get();
+        if (empty($id)) {
+            return $this->get();
+        }
+
+        if($id) {
+            return $this->where('id', $id)->get();
+        }
+        
     }
 
     public function getQuestionsByUserId($user_id)
