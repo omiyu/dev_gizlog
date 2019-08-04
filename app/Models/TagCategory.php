@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Question;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class TagCategory extends Model
@@ -16,6 +17,11 @@ class TagCategory extends Model
     public function getAllCategories()
     {
         return $this->get();
+    }
+
+    public function question()
+    {
+        return $this->hasMany(Question::class);
     }
 
 }
