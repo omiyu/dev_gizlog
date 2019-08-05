@@ -5,8 +5,8 @@
 <div class="main-wrap">
   <div class="panel panel-success">
     <div class="panel-heading">
-      <img src="" class="avatar-img">
-      <p>&nbsp;さんの質問&nbsp;&nbsp;(&nbsp;&nbsp;)</p>
+      <img src="{{ $question[0]->user->avatar }}" class="avatar-img">
+      <p>{{ $question[0]->user->name }}&nbsp;さんの質問&nbsp;&nbsp;(&nbsp;{{ $question[0]->tagCategory->name }}&nbsp;) {{ $question[0]->created_at }}</p>
       <p class="question-date"></p>
     </div>
     <div class="table-responsive">
@@ -14,11 +14,11 @@
         <tbody>
           <tr>
             <th class="table-column">Title</th>
-            <td class="td-text"></td>
+            <td class="td-text">{{ $question[0]->title }}</td>
           </tr>
           <tr>
             <th class="table-column">Question</th>
-            <td class='td-text'></td>
+            <td class='td-text'>{{ $question[0]->content }}</td>
           </tr>
         </tbody>
       </table>
