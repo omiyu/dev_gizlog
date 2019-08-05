@@ -43,31 +43,17 @@ class Question extends Model
 
     public function getQuestions($id)
     {
-        //　joinの記述
-        // $sql = $this->join('tag_categories', function ($join) {
-        //                 $join->on('questions.tag_category_id', '=', 'tag_categories.id')
-        //                      ->where('questions.id', $id);
-        //             })
-        //             ->get();
-        // dd($sql);
-
         if (empty($id)) {
-            // $aa = $this->get();
-            // dd($aa[1]->tagCategory);
             return $this->get();
-            // return $this->get();
         }
 
         if($id) {
-            // dd($sql->where('id', $id));
             return $this->where('id', $id)->get();
         }
-        
     }
 
     public function getQuestionsByUserId($user_id)
     {
-        // dd( $this->tagCategory );
         return $this->where('user_id', $user_id)->get();
     }
 
