@@ -106,7 +106,8 @@ class QuestionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $question = $this->question->where('id', $id)->delete();
+        return redirect()->to('question/myPageTop');
     }
 
     public function myPageTop()

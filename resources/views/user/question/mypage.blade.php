@@ -21,7 +21,7 @@
         @foreach ($questions as $question) 
           <tr class="row">
             <td class="col-xs-2">{{ $question->created_at->format('Y-m-d') }}</td>
-            <td class="col-xs-1">{{ $question->tag_category_id }}</td>
+            <td class="col-xs-1">{{ $question->tagCategory->name }}</td>
             <td class="col-xs-5">{{ $question->title }}</td>
             <td class="col-xs-2"><span class="point-color"></span></td>
             <td class="col-xs-1">
@@ -30,7 +30,7 @@
               </a>
             </td>
             <td class="col-xs-1">
-              {!! Form::open(['route' => ['question.destroy', $question->id]]) !!}
+              {!! Form::open(['route' => ['question.destroy', $question->id], 'method' => 'DELETE']) !!}
                 <button class="btn btn-danger" type="submit">
                   <i class="fa fa-trash-o" aria-hidden="true"></i>
                 </button>
