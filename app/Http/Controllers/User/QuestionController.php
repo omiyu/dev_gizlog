@@ -112,13 +112,13 @@ class QuestionController extends Controller
     public function myPageTop()
     {
         $questions = $this->question->getQuestionsByUserId(Auth::id());
-        return view('user.question.mypage', compact('questions'));
+        $user = Auth::user()->avatar;
+        return view('user.question.mypage', compact('questions', 'user'));
     }
 
     public function confirm($id)
     {
         $question = $this->question->getQuestions($id);
-       
         return view('user.question.confirm', compact('question'));
     }
 
