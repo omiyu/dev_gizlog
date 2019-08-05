@@ -10,10 +10,10 @@
         <select name='tag_category_id' class = "form-control selectpicker form-size-small" id ="pref_id">
           <option value="{{ $question[0]->tagCategory->id }}">{{ $question[0]->tagCategory->name }}</option>
             @foreach ($categories as $category)
-              if ( $category->id == $question[0]->tagCategory->id ) {
-                continue;
+              @if ($category->id !== $question[0]->tagCategory->id) {
+                <option value= "{{ $category->id }}">{{ $category->name }}</option>
               }
-              <option value= "{{ $category->id }}">{{ $category->name }}</option>
+              @endif
             @endforeach
         </select>
         <span class="help-block"></span>

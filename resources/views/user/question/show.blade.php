@@ -6,7 +6,7 @@
   <div class="panel panel-success">
     <div class="panel-heading">
       <img src="{{ $question[0]->user->avatar }}" class="avatar-img">
-      <p>{{ $question[0]->user->name }}&nbsp;さんの質問&nbsp;&nbsp;(&nbsp;{{ $question[0]->tagCategory->name }}&nbsp;) {{ $question[0]->created_at }}</p>
+      <p>{{ $question[0]->user->name }}&nbsp;さんの質問&nbsp;&nbsp;(&nbsp;{{ $question[0]->tagCategory->name }}&nbsp;)&ensp;{{ $question[0]->created_at->format('Y-m-d H:i') }}</p>
       <p class="question-date"></p>
     </div>
     <div class="table-responsive">
@@ -24,19 +24,20 @@
       </table>
     </div>
   </div>
+  @foreach ($comments as $comment)
     <div class="comment-list">
         <div class="comment-wrap">
           <div class="comment-title">
-            <img src="" class="avatar-img">
-            <p></p>
-            <p class="comment-date"></p>
+            <img src="{{ $comment->user->avatar }}" class="avatar-img">
+            <p>{{ $comment->user->name }}</p>
+            <p class="comment-date">{{ $comment->created_at->format('Y-m-d H:i') }}</p>
           </div>
-          <div class="comment-body"></div>
+          <div class="comment-body">{{ $comment->comment }}</div>
         </div>
     </div>
+  @endforeach
   <div class="comment-box">
     {!! Form::open(['route' => 'question.comment', 'method' => 'POST']) !!}
-      <input name="user_id" type="hidden" value="{{ $loginUser->id }}">
       <input name="question_id" type="hidden" value="{{ $question[0]->id }}">
       <div class="comment-title">
         <img src="{{ $loginUser->avatar }}" class="avatar-img"><p>コメントを投稿する</p>

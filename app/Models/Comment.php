@@ -29,4 +29,9 @@ class Comment extends Model
         'updated_at',
         'deleted_at',
     ];
+
+    public function getComments($id)
+    {
+        return $this->where('question_id', $id)->get();
+    }
 }
