@@ -29,9 +29,6 @@ class QuestionController extends Controller
     public function index()
     {
         $questions = $this->question->getQuestions(null);
-        // $category 
-        // $questions[user_avatar] = Auth::user()->avatar;
-        // dd($questions[1]->user);
         return view('user.question.index', compact('questions'));
     }
 
@@ -80,10 +77,9 @@ class QuestionController extends Controller
      */
     public function edit($id)
     {
-        dd($id);
-        $test = DB::table('questions')->where('id', $id)->get();
-        dd($test);
-        return view('user.question.edit');
+        $question = $this->question->getQuestions($id);
+        $categories = $this->category->getAllCategories();
+        return view('user.question.edit', compact('question', 'categories'));
     }
 
     /**
@@ -93,9 +89,12 @@ class QuestionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(QuestionsRequest $request, $id)
     {
-        //
+        $inputs = $request->all();
+        $inputs['user_id'] = Auth::id();
+        $this->question->find($id)->fill($inputs)->save();
+        return redirect()->route('question.confirm', ['id' => $id]);
     }
 
     /**
