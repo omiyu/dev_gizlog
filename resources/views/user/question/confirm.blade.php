@@ -5,7 +5,7 @@
 <div class="main-wrap">
   <div class="panel panel-success">
     <div class="panel-heading">
-      {{ $question[0]->id }}の質問
+      {{ $question[0]->tagCategory->name }}の質問
     </div>
     <div class="table-responsive">
       <table class="table table-striped table-bordered">
