@@ -53,8 +53,8 @@ class QuestionController extends Controller
     {
         $inputs = $request->all();
         $inputs['user_id'] = Auth::id();
-        $this->question->create($inputs);
-        return redirect()->to('question');
+        $id = $this->question->create($inputs)->id;
+        return redirect()->route('question.confirm', ['id' => $id]);
     }
 
     /**
