@@ -4,21 +4,25 @@ namespace App\Http\Controllers\User;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\User\QuestionsRequest;
+use App\Http\Requests\User\CommentRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Question;
 use App\Models\TagCategory;
+use App\Models\Comment;
 
 class QuestionController extends Controller
 {
     protected $question;
     protected $category;
+    protected $comment;
 
-    public function __construct(Question $question, TagCategory $category)
+    public function __construct(Question $question, TagCategory $category, Comment $comment)
     {
         $this->middleware('auth');
         $this->question = $question;
         $this->category = $category;
+        $this->comment = $comment;
     }
 
     /**
@@ -66,7 +70,8 @@ class QuestionController extends Controller
     public function show($id)
     {
         $question = $this->question->getQuestions($id);
-        return view('user.question.show', compact('question'));
+        $loginUser = Auth::user();
+        return view('user.question.show', compact('question', 'loginUser'));
     }
 
     /**
@@ -106,13 +111,13 @@ class QuestionController extends Controller
     public function destroy($id)
     {
         $question = $this->question->where('id', $id)->delete();
-        return redirect()->to('question/myPageTop');
+        return redirect()->route('question.myPageTop');
     }
 
     public function myPageTop()
     {
         $questions = $this->question->getQuestionsByUserId(Auth::id());
-        $user = Auth::user()->avatar;
+        $user = Auth::user();
         return view('user.question.mypage', compact('questions', 'user'));
     }
 
@@ -120,6 +125,14 @@ class QuestionController extends Controller
     {
         $question = $this->question->getQuestions($id);
         return view('user.question.confirm', compact('question'));
+    }
+
+    public function comment(CommentRequest $request)
+    {
+        $inputs = $request->all();
+        $inputs['user_id'] = Auth::id();
+        $this->comment->create($inputs);
+        return redirect()->route('question.show', ['id' => $inputs['question_id']]);
     }
 
     

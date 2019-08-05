@@ -55,10 +55,6 @@ class Question extends Model
     public function getQuestionsByUserId($user_id)
     {
         return $this->where('user_id', $user_id)->get();
-    }
-
-
-    
-    
+    } 
 }
 

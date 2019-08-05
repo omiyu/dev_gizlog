@@ -35,11 +35,11 @@
         </div>
     </div>
   <div class="comment-box">
-    <form>
-      <input name="user_id" type="hidden" value="">
-      <input name="question_id" type="hidden" value="">
+    {!! Form::open(['route' => 'question.comment', 'method' => 'POST']) !!}
+      <input name="user_id" type="hidden" value="{{ $loginUser->id }}">
+      <input name="question_id" type="hidden" value="{{ $question[0]->id }}">
       <div class="comment-title">
-        <img src="" class="avatar-img"><p>コメントを投稿する</p>
+        <img src="{{ $loginUser->avatar }}" class="avatar-img"><p>コメントを投稿する</p>
       </div>
       <div class="comment-body">
         <textarea class="form-control" placeholder="Add your comment..." name="comment" cols="50" rows="10"></textarea>
@@ -50,7 +50,7 @@
           <i class="fa fa-pencil" aria-hidden="true"></i>
         </button>
       </div>
-    </form>
+    {!! Form::close() !!}
   </div>
 </div>
 @endsection
