@@ -33,7 +33,8 @@ class QuestionController extends Controller
     public function index()
     {
         $questions = $this->question->getQuestions(null);
-        return view('user.question.index', compact('questions'));
+        $categories = $this->category->getAllCategories();
+        return view('user.question.index', compact('questions', 'categories'));
     }
 
     /**
