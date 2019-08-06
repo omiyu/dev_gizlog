@@ -40,13 +40,12 @@ class Question extends Model
         return $this->belongsTo(User::class);
     }
 
-
     public function getQuestions($id)
     {
         if (empty($id)) {
             return $this->get();
         }
-
+        
         if($id) {
             return $this->where('id', $id)->get();
         }
@@ -55,6 +54,21 @@ class Question extends Model
     public function getQuestionsByUserId($user_id)
     {
         return $this->where('user_id', $user_id)->get();
-    } 
+    }
+
+    public function getSearchingQuestions($request)
+    {
+        if (!empty($request['search_word']) && !empty($request['tag_category_id'])) {
+            return $this->where('tag_category_id', $request['tag_category_id'])
+                        ->where('content', 'like', '%'.$request['search_word'].'%')
+                        ->get();
+        } elseif (empty($request['search_word']) && !empty($request['tag_category_id'])) {
+            return $this->where('tag_category_id', $request['tag_category_id'])
+                        ->get();
+        } else {
+            return $this->where('content', 'like', '%'.$request['search_word'].'%')
+                        ->get();
+        }
+    }
 }
 

@@ -30,11 +30,16 @@ class QuestionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $questions = $this->question->getQuestions(null);
+        $request = $request->all();
         $categories = $this->category->getAllCategories();
-        return view('user.question.index', compact('questions', 'categories'));
+        if (empty($request)) {
+            $questions = $this->question->get();
+        } else {
+            $questions = $this->question->getSearchingQuestions($request);
+        }
+        return view('user.question.index', compact('questions', 'categories', 'request' )); 
     }
 
     /**
@@ -135,7 +140,5 @@ class QuestionController extends Controller
         $inputs['user_id'] = Auth::id();
         $this->comment->create($inputs);
         return redirect()->route('question.show', ['id' => $inputs['question_id']]);
-    }
-
-    
+    } 
 }
