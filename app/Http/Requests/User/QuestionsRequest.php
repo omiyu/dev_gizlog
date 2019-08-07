@@ -24,7 +24,7 @@ class QuestionsRequest extends FormRequest
     public function rules()
     {
         return [
-            'tag_category_id' => 'required',
+            'tag_category_id' => 'required|gt:0',
             'title' => 'required',
             'content' => 'required',
         ];
@@ -34,6 +34,7 @@ class QuestionsRequest extends FormRequest
     {
         return [
             'tag_category_id.required' => '入力必須の項目です。',
+            'tag_category_id.gt:0' => '入力必須の項目です。',
             'title.required' => '入力必須の項目です。',
             'content.required' => '入力必須の項目です。',
         ];
