@@ -33,7 +33,6 @@ class QuestionsRequest extends FormRequest
     public function messages()
     {
         return [
-            // 「select category」のバリデーションを追加する
             'tag_category_id.required' => '入力必須の項目です。',
             'title.required' => '入力必須の項目です。',
             'content.required' => '入力必須の項目です。',
