@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\TagCategory;
 use App\Models\User;
 use App\Models\Comment;
+use Illuminate\Support\Facades\DB;
 
 class Question extends Model
 {
@@ -42,13 +43,7 @@ class Question extends Model
 
     public function getQuestions($id)
     {
-        if (empty($id)) {
-            return $this->get();
-        }
-        
-        if($id) {
-            return $this->where('id', $id)->get();
-        }
+        return $this->where('id', $id)->get();
     }
 
     public function getQuestionsByUserId($user_id)
@@ -56,19 +51,16 @@ class Question extends Model
         return $this->where('user_id', $user_id)->get();
     }
 
-    public function getSearchingQuestions($request)
+    public function getSearchingQuestions($categoryId, $word)
     {
-        if (!empty($request['search_word']) && !empty($request['tag_category_id'])) {
-            return $this->where('tag_category_id', $request['tag_category_id'])
-                        ->where('content', 'like', '%'.$request['search_word'].'%')
-                        ->get();
-        } elseif (empty($request['search_word']) && !empty($request['tag_category_id'])) {
-            return $this->where('tag_category_id', $request['tag_category_id'])
-                        ->get();
-        } else {
-            return $this->where('content', 'like', '%'.$request['search_word'].'%')
-                        ->get();
-        }
+        return $this->when($categoryId, function ($query, $categoryId) {
+                           return $query->where('tag_category_id', $categoryId);
+                       })
+                       ->when($word, function ($query, $word) {
+                           return $query->where('title', 'like', '%'.$word.'%');
+                       })
+                       ->orderBy('created_at', 'desc')
+                       ->get();
     }
 }
 

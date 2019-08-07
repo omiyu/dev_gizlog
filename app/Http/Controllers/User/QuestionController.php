@@ -32,14 +32,11 @@ class QuestionController extends Controller
      */
     public function index(Request $request)
     {
-        $request = $request->all();
+        $categoryId = $request->input('tag_category_id');
+        $word = $request->input('search_word');
         $categories = $this->category->getAllCategories();
-        if (empty($request)) {
-            $questions = $this->question->get();
-        } else {
-            $questions = $this->question->getSearchingQuestions($request);
-        }
-        return view('user.question.index', compact('questions', 'categories', 'request' )); 
+        $questions = $this->question->getSearchingQuestions($categoryId, $word);
+        return view('user.question.index', compact('questions', 'categories', 'word')); 
     }
 
     /**
