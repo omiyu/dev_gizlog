@@ -5,8 +5,8 @@
 <div class="main-wrap">
   <div class="panel panel-success">
     <div class="panel-heading">
-      <img src="{{ $question[0]->user->avatar }}" class="avatar-img">
-      <p>{{ $question[0]->user->name }}&nbsp;さんの質問&nbsp;&nbsp;(&nbsp;{{ $question[0]->tagCategory->name }}&nbsp;)&ensp;{{ $question[0]->created_at->format('Y-m-d H:i') }}</p>
+      <img src="{{ $question->user->avatar }}" class="avatar-img">
+      <p>{{ $question->user->name }}&nbsp;さんの質問&nbsp;&nbsp;(&nbsp;{{ $question->tagCategory->name }}&nbsp;)&ensp;{{ $question->created_at->format('Y-m-d H:i') }}</p>
       <p class="question-date"></p>
     </div>
     <div class="table-responsive">
@@ -14,11 +14,11 @@
         <tbody>
           <tr>
             <th class="table-column">Title</th>
-            <td class="td-text">{{ $question[0]->title }}</td>
+            <td class="td-text">{{ $question->title }}</td>
           </tr>
           <tr>
             <th class="table-column">Question</th>
-            <td class='td-text'>{!! nl2br(e($question[0]->content)) !!}</td>
+            <td class='td-text'>{!! nl2br(e($question->content)) !!}</td>
           </tr>
         </tbody>
       </table>
@@ -38,7 +38,7 @@
   @endforeach
   <div class="comment-box">
     {!! Form::open(['route' => 'question.comment', 'method' => 'POST']) !!}
-      <input name="question_id" type="hidden" value="{{ $question[0]->id }}">
+      <input name="question_id" type="hidden" value="{{ $question->id }}">
       <div class="comment-title">
         <img src="{{ $loginUser->avatar }}" class="avatar-img"><p>コメントを投稿する</p>
       </div>
