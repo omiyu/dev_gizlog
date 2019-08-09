@@ -16,8 +16,11 @@
     </div>
     <div class="category-wrap">
       <div class="btn all" id="0">all</div>
-      @foreach ($categories as $category)
-        <div class="btn {{ mb_strtolower($category->name) }}" id="{{ $category->id }}">{{ $category->name }}</div>
+      @foreach ($categories as $categoryId => $categoryName)
+        @if ($categoryId === 0)
+          @continue
+        @endif
+        <div class="btn {{ mb_strtolower($categoryName) }}" id="{{ $categoryId }}">{{ $categoryName }}</div>
       @endforeach
       <input id="category-val" name="tag_category_id" type="hidden" value="">
     </div>

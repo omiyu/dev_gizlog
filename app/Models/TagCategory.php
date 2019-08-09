@@ -14,14 +14,19 @@ class TagCategory extends Model
     protected $table = 'tag_categories';
     protected $dates = ['deleted_at'];
 
-    public function getAllCategories()
-    {
-        return $this->get();
-    }
-
     public function question()
     {
         return $this->hasMany(Question::class);
+    }
+
+    public function getAllCategories()
+    {
+        $categories = $this->all();
+        $arrayCategories = [0 => 'Select category'];
+        foreach ($categories as $category){
+            $arrayCategories[$category->id] = $category->name;
+        };
+        return $arrayCategories;
     }
 }
 
