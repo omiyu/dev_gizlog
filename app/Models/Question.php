@@ -43,7 +43,7 @@ class Question extends Model
 
     public function getQuestions($id)
     {
-        return $this->where('id', $id)->get();
+        return $this->find($id);
     }
 
     public function getQuestionsByUserId($user_id)
