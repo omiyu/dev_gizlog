@@ -115,10 +115,10 @@ class QuestionController extends Controller
     public function destroy($id)
     {
         $question = $this->question->where('id', $id)->delete();
-        return redirect()->route('question.myPageTop');
+        return redirect()->route('question.showMyPageTop');
     }
 
-    public function myPageTop()
+    public function showMyPageTop()
     {
         $questions = $this->question->getQuestionsByUserId(Auth::id());
         $user = Auth::user();
