@@ -53,10 +53,10 @@ class Question extends Model
 
     public function getSearchingQuestions($categoryId, $word)
     {
-        return $this->when($categoryId, function ($query, $categoryId) {
+        return $this->when(isset($categoryId), function ($query) use ($categoryId) {
                            return $query->where('tag_category_id', $categoryId);
                        })
-                       ->when($word, function ($query, $word) {
+                       ->when(isset($word), function ($query) use ($word) {
                            return $query->where('title', 'like', '%'.$word.'%');
                        })
                        ->orderBy('created_at', 'desc')
