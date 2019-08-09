@@ -73,7 +73,7 @@ class QuestionController extends Controller
     public function show($id)
     {
         $question = $this->question->getQuestions($id);
-        $comments = $this->comment->getComments($id);
+        $comments = $question->comment;
         $loginUser = Auth::user();
         return view('user.question.show', compact('question', 'loginUser', 'comments'));
     }
