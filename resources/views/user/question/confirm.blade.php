@@ -5,29 +5,29 @@
 <div class="main-wrap">
   <div class="panel panel-success">
     <div class="panel-heading">
-      {{ $question->tagCategory->name }}の質問
+      {{ $inputs['tag_category_name'] }}の質問
     </div>
     <div class="table-responsive">
       <table class="table table-striped table-bordered">
         <tbody>
           <tr>
             <th class="table-column">Title</th>
-            <td class="td-text">{{ $question->title }}</td>
+            <td class="td-text">{{ $inputs['title'] }}</td>
           </tr>
           <tr>
             <th class="table-column">Question</th>
-            <td class='td-text'>{!! nl2br(e($question->content)) !!}</td>
+            <td class='td-text'>{!! nl2br(e($inputs['content'])) !!}</td>
           </tr>
         </tbody>
       </table>
     </div>
   </div>
   <div class="btn-bottom-wrapper">
-    {!! Form::open(['route' => 'question.index', 'method' => 'GET']) !!}
-      <input name="user_id" type="hidden" value="">
-      <input name="tag_category_id" type="hidden" value="">
-      <input name="title" type="hidden" value="">
-      <input name="content" type="hidden" value="">
+    {!! Form::open(['route' => $inputs['route'], 'method' => $inputs['method']]) !!}
+      {!! Form::input('hidden', 'question_id', $inputs['question_id']) !!}
+      {!! Form::input('hidden', 'tag_category_id', $inputs['tag_category_id']) !!}
+      {!! Form::input('hidden', 'title', $inputs['title']) !!}
+      {!! Form::input('hidden', 'content', $inputs['content']) !!}
       <button type="submit" class="btn btn-success"><i class="fa fa-check" aria-hidden="true"></i></button>
     {!! Form::close() !!}
   </div>

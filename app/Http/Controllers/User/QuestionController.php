@@ -60,8 +60,8 @@ class QuestionController extends Controller
     {
         $inputs = $request->all();
         $inputs['user_id'] = Auth::id();
-        $id = $this->question->create($inputs)->id;
-        return redirect()->route('question.confirm', ['id' => $id]);
+        $this->question->create($inputs);
+        return redirect()->route('question.index');
     }
 
     /**
@@ -98,12 +98,12 @@ class QuestionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(QuestionsRequest $request, $id)
+    public function update(QuestionsRequest $request)
     {
         $inputs = $request->all();
         $inputs['user_id'] = Auth::id();
-        $this->question->find($id)->fill($inputs)->save();
-        return redirect()->route('question.confirm', ['id' => $id]);
+        $this->question->find($inputs['question_id'])->fill($inputs)->save();
+        return redirect()->route('question.showMyPageTop');
     }
 
     /**
@@ -125,10 +125,19 @@ class QuestionController extends Controller
         return view('user.question.mypage', compact('questions', 'user'));
     }
 
-    public function confirm($id)
+    public function confirm(QuestionsRequest $request)
     {
-        $question = $this->question->getQuestions($id);
-        return view('user.question.confirm', compact('question'));
+        $inputs = $request->all();
+        $inputs['tag_category_name'] = $this->category->where('id', $inputs['tag_category_id'])->value('name');
+        if (!isset($inputs['question_id'])) {
+            $inputs['question_id'] = null;
+            $inputs['route'] = 'question.store';
+            $inputs['method'] = 'POST';
+        } else {
+            $inputs['route'] = ['question.update', $inputs['question_id']];
+            $inputs['method'] = 'PUT'; 
+        }
+        return view('user.question.confirm', compact('inputs'));
     }
 
     public function comment(CommentRequest $request)
