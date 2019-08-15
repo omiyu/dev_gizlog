@@ -22,7 +22,6 @@ class TagCategory extends Model
     public function getAllCategories()
     {
         $categories = $this->all();
-        $arrayCategories = [0 => 'Select category'];
         foreach ($categories as $category){
             $arrayCategories[$category->id] = $category->name;
         };

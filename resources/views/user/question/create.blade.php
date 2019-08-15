@@ -6,7 +6,7 @@
   <div class="container">
     {!! Form::open(['route' => 'question.confirm', 'method' => 'POST']) !!}
       <div class="form-group">
-        {!! Form::select('tag_category_id', $categories, null, ['class' => 'form-control selectpicker form-size-small', 'id' => 'pref_id']) !!}
+        {!! Form::select('tag_category_id', $categories, null, ['placeholder' => 'Select category', 'class' => 'form-control selectpicker form-size-small', 'id' => 'pref_id']) !!}
         <span class="help-block">{{ $errors->first('tag_category_id') }}</span>
       </div>
       <div class="form-group">
