@@ -24,7 +24,6 @@
   </div>
   <div class="btn-bottom-wrapper">
     {!! Form::open(['route' => $inputs['route'], 'method' => $inputs['method']]) !!}
-      {!! Form::input('hidden', 'question_id', $inputs['question_id']) !!}
       {!! Form::input('hidden', 'tag_category_id', $inputs['tag_category_id']) !!}
       {!! Form::input('hidden', 'title', $inputs['title']) !!}
       {!! Form::input('hidden', 'content', $inputs['content']) !!}

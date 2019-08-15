@@ -73,7 +73,7 @@ class QuestionController extends Controller
     public function show($id)
     {
         $question = $this->question->getQuestionByQuestionId($id);
-        $comments = $question->comment;
+        $comments = $question->comment ?: [];
         $loginUser = Auth::user();
         return view('user.question.show', compact('question', 'loginUser', 'comments'));
     }
@@ -98,11 +98,11 @@ class QuestionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(QuestionsRequest $request)
+    public function update(QuestionsRequest $request, $id)
     {
         $inputs = $request->all();
         $inputs['user_id'] = Auth::id();
-        $this->question->find($inputs['question_id'])->fill($inputs)->save();
+        $this->question->find($id)->fill($inputs)->save();
         return redirect()->route('question.showMyPageTop');
     }
 
@@ -133,7 +133,6 @@ class QuestionController extends Controller
             $inputs['route'] = ['question.update', $inputs['question_id']];
             $inputs['method'] = 'PUT'; 
         } else {
-            $inputs['question_id'] = null;
             $inputs['route'] = 'question.store';
             $inputs['method'] = 'POST';
         }
