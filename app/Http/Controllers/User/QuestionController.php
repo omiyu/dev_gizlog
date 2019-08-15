@@ -129,13 +129,13 @@ class QuestionController extends Controller
     {
         $inputs = $request->all();
         $inputs['tag_category_name'] = $this->category->where('id', $inputs['tag_category_id'])->value('name');
-        if (!isset($inputs['question_id'])) {
+        if (isset($inputs['question_id'])) {
+            $inputs['route'] = ['question.update', $inputs['question_id']];
+            $inputs['method'] = 'PUT'; 
+        } else {
             $inputs['question_id'] = null;
             $inputs['route'] = 'question.store';
             $inputs['method'] = 'POST';
-        } else {
-            $inputs['route'] = ['question.update', $inputs['question_id']];
-            $inputs['method'] = 'PUT'; 
         }
         return view('user.question.confirm', compact('inputs'));
     }
