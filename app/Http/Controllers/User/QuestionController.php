@@ -13,9 +13,9 @@ use App\Models\Comment;
 
 class QuestionController extends Controller
 {
-    protected $question;
-    protected $category;
-    protected $comment;
+    private $question;
+    private $category;
+    private $comment;
 
     public function __construct(Question $question, TagCategory $category, Comment $comment)
     {
