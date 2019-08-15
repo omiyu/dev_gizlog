@@ -41,7 +41,7 @@ class Question extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function getQuestions($id)
+    public function getQuestionByQuestionId($id)
     {
         return $this->find($id);
     }

@@ -72,7 +72,7 @@ class QuestionController extends Controller
      */
     public function show($id)
     {
-        $question = $this->question->getQuestions($id);
+        $question = $this->question->getQuestionByQuestionId($id);
         $comments = $question->comment;
         $loginUser = Auth::user();
         return view('user.question.show', compact('question', 'loginUser', 'comments'));
@@ -86,7 +86,7 @@ class QuestionController extends Controller
      */
     public function edit($id)
     {
-        $question = $this->question->getQuestions($id);
+        $question = $this->question->getQuestionByQuestionId($id);
         $categories = $this->category->getAllCategories();
         return view('user.question.edit', compact('question', 'categories'));
     }
