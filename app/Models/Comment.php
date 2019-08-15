@@ -30,7 +30,7 @@ class Comment extends Model
         'deleted_at',
     ];
 
-    public function getComments($id)
+    public function getCommentsByQuestionId($id)
     {
         return $this->where('question_id', $id)->get();
     }
