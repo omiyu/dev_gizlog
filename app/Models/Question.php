@@ -59,7 +59,7 @@ class Question extends Model
                            return $query->where('tag_category_id', $categoryId);
                        })
                        ->when(isset($word), function ($query) use ($word) {
-                           return $query->where('title', 'like', '%'.$word.'%');
+                           return $query->where('title', 'like', '%' . $word . '%');
                        })
                        ->orderBy('created_at', 'desc')
                        ->get();
