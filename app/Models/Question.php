@@ -55,7 +55,7 @@ class Question extends Model
 
     public function getSearchingQuestions($categoryId, $word)
     {
-        return $this->when(isset($categoryId), function ($query) use ($categoryId) {
+        return $this->when(isset($categoryId) && $categoryId != 0, function ($query) use ($categoryId) {
                            return $query->where('tag_category_id', $categoryId);
                        })
                        ->when(isset($word), function ($query) use ($word) {
