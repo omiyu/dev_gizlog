@@ -33,12 +33,12 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    public function question()
+    public function questions()
     {
         return $this->hasMany(Question::class, 'user_id');
     }
 
-    public function comment()
+    public function comments()
     {
         return $this->hasMany(Comment::class, 'user_id');
     }
