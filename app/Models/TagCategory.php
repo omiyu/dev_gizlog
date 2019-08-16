@@ -19,13 +19,9 @@ class TagCategory extends Model
         return $this->hasMany(Question::class);
     }
 
-    public function getAllCategories()
-    {
-        $categories = $this->all();
-        foreach ($categories as $category){
-            $arrayCategories[$category->id] = $category->name;
-        };
-        return $arrayCategories;
-    }
+    // public function getAllCategories()
+    // {
+    //     return $this->all();
+    // }
 }
 

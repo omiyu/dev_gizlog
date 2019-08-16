@@ -34,7 +34,7 @@ class QuestionController extends Controller
     {
         $categoryId = $request->input('tag_category_id');
         $word = $request->input('search_word');
-        $categories = $this->category->getAllCategories();
+        $categories = $this->category->all();
         $questions = $this->question->getSearchingQuestions($categoryId, $word);
         return view('user.question.index', compact('questions', 'categories', 'word')); 
     }
