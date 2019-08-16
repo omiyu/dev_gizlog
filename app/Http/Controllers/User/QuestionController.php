@@ -47,7 +47,10 @@ class QuestionController extends Controller
     public function create()
     {
         $categories = $this->category->getAllCategories();
-        return view('user.question.create', compact('categories'));
+        foreach ($categories as $category) {
+            $arrayCategoriesName[] = $category->name;
+        }
+        return view('user.question.create', compact('arrayCategoriesName'));
     }
 
     /**
@@ -88,7 +91,10 @@ class QuestionController extends Controller
     {
         $question = $this->question->getQuestionByQuestionId($id);
         $categories = $this->category->getAllCategories();
-        return view('user.question.edit', compact('question', 'categories'));
+        foreach ($categories as $category) {
+            $arrayCategoriesName[$category->id] = $category->name;
+        }
+        return view('user.question.edit', compact('question', 'arrayCategoriesName'));
     }
 
     /**
@@ -130,13 +136,13 @@ class QuestionController extends Controller
         $inputs = $request->all();
         $inputs['tag_category_name'] = $this->category->where('id', $inputs['tag_category_id'])->value('name');
         if (isset($inputs['question_id'])) {
-            $inputs['route'] = ['question.update', $inputs['question_id']];
-            $inputs['method'] = 'PUT'; 
+            $route = ['question.update', $inputs['question_id']];
+            $method = 'PUT'; 
         } else {
-            $inputs['route'] = 'question.store';
-            $inputs['method'] = 'POST';
+            $route = 'question.store';
+            $method = 'POST';
         }
-        return view('user.question.confirm', compact('inputs'));
+        return view('user.question.confirm', compact('inputs', 'route', 'method'));
     }
 
     public function comment(CommentRequest $request)
