@@ -55,14 +55,24 @@ class Question extends Model
 
     public function getSearchingQuestions($categoryId, $word)
     {
-        return $this->when(isset($categoryId) && $categoryId != 0, function ($query) use ($categoryId) {
-                           return $query->where('tag_category_id', $categoryId);
-                       })
-                       ->when(isset($word), function ($query) use ($word) {
-                           return $query->where('title', 'like', '%' . $word . '%');
-                       })
-                       ->orderBy('created_at', 'desc')
-                       ->get();
+        return $this->searchQuestionsByCategoryId($categoryId)
+                    ->searchQuestionsByKeyword($word)
+                    ->orderBy('created_at', 'desc')
+                    ->get();
+    }
+
+    public function scopeSearchQuestionsByCategoryId($query, $categoryId)
+    {
+        if (isset($categoryId) && $categoryId != 0) {
+            return $query->where('tag_category_id', $categoryId);
+        }
+    }
+
+    public function scopeSearchQuestionsByKeyword($query, $word)
+    {
+        if (isset($word)) {
+            return $query->where('title', 'like', '%' . $word . '%');
+        }
     }
 }
 
