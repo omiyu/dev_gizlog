@@ -48,7 +48,7 @@ class QuestionController extends Controller
     {
         $categories = $this->category->all();
         foreach ($categories as $category) {
-            $arrayCategoriesName[] = $category->name;
+            $arrayCategoriesName[$category->id] = $category->name;
         }
         return view('user.question.create', compact('arrayCategoriesName'));
     }
